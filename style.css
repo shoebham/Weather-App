@@ -1,0 +1,40 @@
+html,body{
+    height:100%;
+     min-height:100%; 
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+p{
+    display: block;
+    margin: 0;
+}
+.weather-search{
+    text-align: center;
+    order:2
+}
+
+.weather-info{   
+    order: 1;
+    display: flex;
+    justify-content: space-between;   
+}
+
+.extra-info{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.temperature-info{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.sunrise-info>p{
+    width: min-content;
+}

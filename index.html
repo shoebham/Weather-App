@@ -11,18 +11,27 @@
     
     <div class="main">
         <div class="weather-search">
-            <input id="location-input" type="text" placeholder="Enter Location/Zipcode"/>
-            <button onclick="search()">Search</button>
+            <input id="location-input" class="location-search" type="text" placeholder="Enter Location/Zipcode"/>
+            <button id="location-search-btn" class="location-search" onclick="search()">Search</button>
         </div>
         <div class="weather-info">
-            <p id="temperature"></p>
-            <p id="location"></p>
-            <p id="description"></p>
-            <p id="humidity"></p>
-            <p id="pressure"></p>
-            <p id="sunrise"></p>
-            <p id="sunset"></p>
-            <p id="icon"></p>
+            <div class="extra-info info">
+                extra-info
+                <p id="humidity"></p>
+                <p id="pressure"></p>
+            </div>
+            <div class="temperature-info info">
+                Temperature-info
+                <p id="icon"></p>
+                <p id="temperature"></p>
+                <p id="location"></p>
+                <p id="description"></p>
+            </div>
+            <div class="sunrise-info info">
+                sunrise-info
+                <p id="sunrise"></p>
+                <p id="sunset"></p>
+            </div>
         </div>
     </div>
 </body>
