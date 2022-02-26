@@ -45,9 +45,17 @@ function displayWeather(){
     sunrise.textContent=timeConverter(weather.sunrise);
     sunset.textContent=timeConverter(weather.sunset);
     description.textContent=weather.description;
-    icon.textContent=weather.icon;
+    displayIcon(weather.icon);
+    const weatherInfo = document.querySelector(".temperature-info");
+    weatherInfo.style.marginBottom="15%";
 }
 
+function displayIcon(iconCode){
+    const icon = document.querySelector("#icon-img");
+    const iconLink =`http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    icon.src=iconLink;
+
+}
 function timeConverter(time){
     return new Date(time*1000);
 }
