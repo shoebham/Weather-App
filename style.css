@@ -26,6 +26,9 @@ p{
 }
 span { display: inline }
 
+.material-icons-outlined{
+    color:black;
+}
 
 .weather-search{
     text-align: center;
