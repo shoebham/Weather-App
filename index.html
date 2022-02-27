@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" id="css">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 
 </head>
@@ -13,38 +13,47 @@
     
     <div class="main">
         <div class="weather-search">
-            <input id="location-input" class="location-search" type="text" placeholder="Enter Location/Zipcode"/>
-            <button id="location-search-btn" class="location-search" onclick="search()">Search</button>
+            <input id="location-input" class="location-search" type="text" placeholder="Enter Location/Zipcode">
+            <button id="location-search-btn" class="location-search" onclick="search()">
+                <span class="material-icons-outlined">
+                search
+                </span>
+            </button>
+        </div>
+        <div class="theme">
+                <span class="material-icons-outlined" id="mode">
+                light_mode
+                </span>
         </div>
         <div class="weather-info">
-            <div class="extra-info info">
+            <!-- <div class="extra-info info">
                 <span class="material-icons-outlined">
                     water
                     </span>
                     <p id="humidity"></p>
                 <p id="pressure"></p>
-            </div>
+            </div> -->
             <div class="temperature-info info">
-                <span class="material-icons-outlined">
-                    thermostat
-                    </span>
-                <p id="icon"><img id="icon-img"></p>
-                <p id="temperature"></p>
                 <p id="location"></p>
-                <p id="description"></p>
+                <p id="temperature"></p><br>
+                <button class="temp-change" id="celsius">C°</button>|
+                <button class="temp-change" id="fahrenheit">F°</button>
+                <p id="description"> <p id="icon"><img id="icon-img"></p></p>
             </div>
-            <div class="sunrise-info info">
+            
+            <!-- <div class="sunrise-info info">
                 <span class="material-icons-outlined" >
                     brightness_high
                     </span><p id="sunrise">
-                    
                 </p><span class="material-icons-outlined">
                     dark_mode
                     </span>
                 <p id="sunset"></p>
-            </div>
+            </div> -->
         </div>
+
     </div>
+    
 </body>
 <script src="script.js"></script>
 
