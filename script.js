@@ -1,8 +1,6 @@
-import  { WEATHER_API_KEY } from "./api_key.js";
-import {GIF_API_KEY} from "./api_key.js";
-
 var weather={};
-
+const WEATHER_API_KEY="4ab5cf99f985b594a4276b30c7b3b95e";
+const GIF_API_KEY="L2AncndI0uU2YX5TFCrENzUaUJUkOD7j";
 
 async function searchGif(text){
     const response=await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${GIF_API_KEY}&s=${text}`,{mode:'cors'})
