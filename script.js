@@ -98,20 +98,25 @@ function setup(){
     const css = document.querySelector("#css");
     const body = document.querySelector("body");
     mode.addEventListener("click",(e)=>{
-        console.log(e)
+        body.classList.toggle("dark");
         if(mode.textContent=="dark_mode"){
             mode.textContent="light_mode";
-            body.classList.remove("dark")
+            // body.classList.remove("dark")
 
         }
         else
         {
             mode.textContent="dark_mode";
-            body.classList.add("dark");
-
+            // body.classList.add("dark");
         }
     });
-    
+
+    const currentTime = parseInt(new Date().toString().split(" ")[4].split(":")[0]);
+    if(currentTime>18&&currentTime<6)
+        body.classList.add("dark");
+    else
+        body.classList.remove("dark");
+
 }
 setup();
 search();

@@ -9,6 +9,7 @@ html,body{
     text-shadow: 1px 1px 1px black;
     box-sizing: border-box;     
     user-select: none;
+    transition: background-color 1s;
 }
 
 
