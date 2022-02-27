@@ -12,8 +12,9 @@ document.querySelector("#location-input").addEventListener("keydown",(e)=>{
 })
 async function search(){
     let location_input = document.querySelector("#location-input").value
-    if(location_input=="") 
+    if(location_input=="") {
         location_input="Ukraine";
+    }
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location_input}&appid=${API_KEY}&units=metric`;
     const response = await fetch(url,{mode:'cors'});
     const data = await response.json();
@@ -62,7 +63,7 @@ function displayWeather(){
     const icon = document.querySelector("#icon");
     temperature.textContent+=`<span class="material-icons-outlined">
     thermostat</span>`;
-    temperature.textContent=weather.temperature;
+    temperature.textContent=Math.round(weather.temperature)+"°C";
     // // humidity.textContent=weather.humidity;
     // // pressure.textContent=weather.pressure;
     location.textContent=weather.location;
