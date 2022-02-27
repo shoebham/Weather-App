@@ -1,8 +1,15 @@
-const API_KEY="4ab5cf99f985b594a4276b30c7b3b95e"
+import  { WEATHER_API_KEY } from "./api_key.js";
+import {GIF_API_KEY} from "./api_key.js";
+
 var weather={};
 
 
-
+async function searchGif(text){
+    const response=await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${GIF_API_KEY}&s=${text}`,{mode:'cors'})
+    const json= await response.json()
+    document.querySelector("body").style.backgroundImage=`url(${json.data.images.original.url})`;
+    
+}
 document.querySelector("#location-input").addEventListener("keydown",(e)=>{
     if(e.key=="Enter"){
         var text = document.querySelector('#location-input').value;
@@ -13,65 +20,58 @@ document.querySelector("#location-input").addEventListener("keydown",(e)=>{
 async function search(){
     let location_input = document.querySelector("#location-input").value
     if(location_input=="") {
-        location_input="Ukraine";
+        location_input="Antarctica";
     }
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location_input}&appid=${API_KEY}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location_input}&appid=${WEATHER_API_KEY}&units=metric`;
     const response = await fetch(url,{mode:'cors'});
-    const data = await response.json();
+    console.log(response);
+    if(response.status!=200){
+        displayError(response.status,response.statusText);
+        return;
+    }
+
+    const data = await response.json()
     const celsius = document.querySelector("#celsius");
+    celsius.classList.add("active");
     const fahrenheit = document.querySelector("#fahrenheit");
+    fahrenheit.classList.remove("active");
     weather.temperature = data.main.temp;
-    weather.humidity=data.main.humidity;
-    weather.pressure=data.main.pressure;
     weather.location=data.name
-    weather.sunrise=data.sys.sunrise;
-    weather.sunset=data.sys.sunset;
-    weather.timezone=data.timezone;
     weather.description=data.weather[0].description;
     weather.icon=data.weather[0].icon;
-    console.log(data);
-    console.log(weather);
-
     const tempChange=document.querySelectorAll(".temp-change");
     tempChange.forEach(element => {
-        element.addEventListener("click",(e)=>{
-            if(e.target.id=="celsius"){
-                celsius.classList.add("active");
-                fahrenheit.classList.remove("active");
-                document.querySelector("#temperature").innerHTML=Math.round(weather.temperature)+"°C";
-            }
-            else{
-                fahrenheit.classList.add("active");
-                celsius.classList.remove("active");
-                document.querySelector("#temperature").innerHTML=Math.round((weather.temperature*9/5)+32)+"°F";
-            }
-        })
+        element.addEventListener("click",changeTemp);
     });
 
     displayWeather();
 }
 
+function changeTemp(e){
+    console.log(e);
+    if(e.target.id=="celsius"){
+        celsius.classList.add("active");
+        fahrenheit.classList.remove("active");
+        document.querySelector("#temperature").innerHTML=Math.round(weather.temperature)+"°C";
+    }
+    else{
+        fahrenheit.classList.add("active");
+        celsius.classList.remove("active");
+        document.querySelector("#temperature").innerHTML=Math.round((weather.temperature*9/5)+32)+"°F";
+    }
+}
+
 function displayWeather(){
     const temperature = document.querySelector("#temperature");
-    const humidity = document.querySelector("#humidity");
-    const pressure = document.querySelector("#pressure");
     const location = document.querySelector("#location");
-    const sunrise = document.querySelector("#sunrise");
-    const sunset = document.querySelector("#sunset");
     const description = document.querySelector("#description");
     const icon = document.querySelector("#icon");
     temperature.textContent+=`<span class="material-icons-outlined">
     thermostat</span>`;
     temperature.textContent=Math.round(weather.temperature)+"°C";
-    // // humidity.textContent=weather.humidity;
-    // // pressure.textContent=weather.pressure;
     location.textContent=weather.location;
-    // sunrise.textContent=timeFormatter(timeConverter(weather.sunrise));
-    // sunset.textContent=timeFormatter(timeConverter(weather.sunset));
     description.textContent=weather.description;
-    displayIcon(weather.icon);
-    const weatherInfo = document.querySelector(".temperature-info");
-    // weatherInfo.style.marginBottom="15%";
+    searchGif(weather.location);
 }
 
 function displayIcon(iconCode){
@@ -80,23 +80,10 @@ function displayIcon(iconCode){
     icon.src=iconLink;
 
 }
-function timeConverter(time){
-    return new Date(time*1000);
-}
-
-function timeFormatter(time){
-    // Sun Feb 27 2022 06:53:12 GMT+0530 (India Standard Time)
-    const timeString=time.toString();
-    const timeArray=timeString.split(" ");
-    const currentTime=timeArray[4];
-    return currentTime;
-}
 
 
 function setup(){
     const mode = document.querySelector("#mode");
-    const celsius = document.querySelector("#celsius");
-    celsius.classList.add("active");
     const css = document.querySelector("#css");
     const body = document.querySelector("body");
     mode.addEventListener("click",(e)=>{
@@ -119,6 +106,17 @@ function setup(){
     else
         body.classList.remove("dark");
 
+}
+
+function displayError(errorCode,errorText){
+    document.querySelector("#location").textContent="Error";
+    document.querySelector("#temperature").textContent=errorCode;
+    document.querySelector("#description").textContent=errorText;
+    const tempChange=document.querySelectorAll(".temp-change");
+    tempChange.forEach(element => {
+        element.removeEventListener("click",changeTemp,false);
+    });
+    searchGif(errorText)
 }
 setup();
 search();
