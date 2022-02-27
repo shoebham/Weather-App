@@ -20,7 +20,6 @@ async function search(){
     const data = await response.json();
     const celsius = document.querySelector("#celsius");
     const fahrenheit = document.querySelector("#fahrenheit");
-    celsius.classList.add("active");
     weather.temperature = data.main.temp;
     weather.humidity=data.main.humidity;
     weather.pressure=data.main.pressure;
@@ -96,6 +95,8 @@ function timeFormatter(time){
 
 function setup(){
     const mode = document.querySelector("#mode");
+    const celsius = document.querySelector("#celsius");
+    celsius.classList.add("active");
     const css = document.querySelector("#css");
     const body = document.querySelector("body");
     mode.addEventListener("click",(e)=>{
